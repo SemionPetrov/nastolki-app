@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Мои настолки{% endblock %}</title>
+    <meta charset="utf-8">
+    <style>
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 Мои настолки</h1>
+        <nav>
+            <a href="/">Главная</a> |
+            <a href="/games">Игры</a> |
+            <a href="/about_me">Обо мне</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

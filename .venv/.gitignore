@@ -1,0 +1,16 @@
+# Виртуальное окружение
+.venv
+venv
+__pycache__
+*.pyc
+
+# База данных (можно создать заново)
+*.db
+
+# PyCharm
+.idea/
+*.iml
+
+# ОС
+.DS_Store
+Thumbs.db

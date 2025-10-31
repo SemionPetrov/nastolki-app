@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Обо мне{% endblock %}
+
+{% block content %}
+<h1>Добавление настольной игры</h1>
+<p>Хэй-хэй-хэй, хочешь добавить игру? <br> Для этого тебе нужно заполнить форму</p>
+<form action="/add_games" method="post">
+    <label>Название игры</label>
+    <input placeholder="Цитадели" type="text"><br>
+    <label>Краткое описание</label>
+    <textarea placeholder="эта игра о средневековых замках"></textarea><br>
+    <label>Число игроков</label>
+    <input type="number"><br>
+    <label>Время игры</label>
+    <input type="time"> <br>
+    <button>Добавить</button>
+</form>
+{% endblock %}

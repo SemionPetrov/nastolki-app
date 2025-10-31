@@ -14,5 +14,9 @@ def MyGame():
 @app.route("/about_me")
 def about_me():
     return render_template("about_me.html")
+@app.route("/add")
+def add_game():
+    return render_template("add.html")
+
 if __name__ == "__main__":
     app.run(debug=True)

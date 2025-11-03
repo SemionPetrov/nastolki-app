@@ -1,5 +1,5 @@
 # Импортируем основной класс Flask
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 # Создаём объект приложения
 app = Flask(__name__)
@@ -15,7 +15,13 @@ def MyGame():
 def about_me():
     return render_template("about_me.html")
 @app.route("/add")
+def form_add_game():
+    return render_template("add.html")
+@app.route("/add_games", methods=['POST'])
 def add_game():
+    title = request.form["title"]
+    number_player = request.form["number_player"]
+    print(title,number_player)
     return render_template("add.html")
 
 if __name__ == "__main__":

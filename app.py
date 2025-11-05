@@ -1,5 +1,6 @@
 # Импортируем основной класс Flask
 from flask import Flask, render_template, request
+from werkzeug.utils import redirect
 
 # Создаём объект приложения
 app = Flask(__name__)
@@ -22,7 +23,7 @@ def add_game():
     title = request.form["title"]
     number_player = request.form["number_player"]
     print(title,number_player)
-    return render_template("add.html")
+    return redirect("/add")
 
 if __name__ == "__main__":
     app.run(debug=True)

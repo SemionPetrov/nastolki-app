@@ -1,10 +1,17 @@
 # Импортируем основной класс Flask
 from flask import Flask, render_template, request
 from werkzeug.utils import redirect
+import sqlite3
 
 # Создаём объект приложения
 app = Flask(__name__)
 
+# Октрывает базу данных
+def init_db():
+    with sqlite3.connect("games.db") as conn:
+        with open("data.sql", "r", encoding="utf-8") as f:
+            script = f.read()
+            conn.executescript(script)
 # Определяем, что будет на главной странице "/"
 @app.route("/")
 def hello():
@@ -26,4 +33,5 @@ def add_game():
     return redirect("/add")
 
 if __name__ == "__main__":
+    init_db()
     app.run(debug=True)

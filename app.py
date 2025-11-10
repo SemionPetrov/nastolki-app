@@ -18,7 +18,12 @@ def hello():
     return render_template("index.html")
 @app.route("/games")
 def MyGame():
-    return render_template("games.html")
+    with sqlite3.connect("games.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT title, players FROM games")
+        games = cursor.fetchall()  # Получаем все игры
+        print("✅ Игры из БД:", games)
+    return render_template("games.html", games=games)
 @app.route("/about_me")
 def about_me():
     return render_template("about_me.html")
@@ -29,7 +34,16 @@ def form_add_game():
 def add_game():
     title = request.form["title"]
     number_player = request.form["number_player"]
-    print(title,number_player)
+
+    # Выводим в консоль, чтобы убедиться, что данные пришли
+    print(f"Получено: {title}, игроков: {number_player}")
+
+    # Сохраняем в БД
+    with sqlite3.connect("games.db") as conn:
+        conn.execute("""
+            INSERT INTO games (title, players)
+            VALUES (?, ?)
+        """, (title, number_player))
     return redirect("/add")
 
 if __name__ == "__main__":

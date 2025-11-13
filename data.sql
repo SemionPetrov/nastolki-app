@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS games (
     title TEXT NOT NULL,
     description TEXT,
     players INTEGER,
-    duration INTEGER
+    playing_time INTEGER
 );

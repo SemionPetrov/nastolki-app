@@ -8,12 +8,15 @@
     </style>
 </head>
 <body>
+<div  align="center">
     <header>
+
         <img width="300" height="100" src="{{ url_for('static', filename='zastavka.png') }}" alt="Заставка">
         <nav>
             <a href ="/">Главная</a> |
             <a href="/about_me">Обо мне</a>
         </nav>
+
         <hr>
     </header>
 
@@ -21,5 +24,6 @@
         {% block content %}
         {% endblock %}
     </main>
+</div>
 </body>
 </html>

@@ -12,22 +12,23 @@
     <a href="/add"> Добавить игру</a> <br>
 {% else %}
     {%for g in games %}
-    <form action="app.py" method="post">
+    <form action="/delete_game" method="post">
+
         <table width="700" border="10">
             <tr>
-                <td rowspan="2" width="70">Игра №{{g[0]}}</td>
-                <th>Название игры</th>
+                <td rowspan="2" width="70">  Игра №<input type="hidden"   name="num_gam" value='{{g[0]}}'   > {{g[0]}}</td>
+                <th width="150">Название игры</th>
                 <th>Описание</th>
                 <th>Кол-во игроков</th>
                 <th>время игры</th>
-                <td width><button type="submit" formaction="/delete_game" >Удалить</button></td>
+                <td width="100"><button type="submit" >Удалить игру</button></td>
             </tr>
             <tr>
                 <td>{{g[1]}}</td>
                 <td width="200">{{g[2]}}</td>
                 <td>{{g[3]}}</td>
                 <td>{{g[4]}}</td>
-                <td><button>Изменить</button></td>
+                <td align="center"><button>Изменить</button></td>
             </tr>
         </table>
     </form>

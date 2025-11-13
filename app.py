@@ -4,6 +4,12 @@ from werkzeug.utils import redirect
 import sqlite3
 
 app = Flask(__name__)
+def printik(n,d):
+    n = 0
+    if d == 1:
+        n +=1
+    if d == 0:
+        n -=1
 
 def init_db():
     with sqlite3.connect("games.db") as conn:
@@ -22,7 +28,6 @@ def MyGame():
         cursor = conn.cursor()
         cursor.execute("SELECT id, title, description, players, playing_time FROM games")
         games = cursor.fetchall()  # Получаем все игры
-        print("✅ Игры из БД:", games)
     return render_template("games.html", games=games)
 
 @app.route("/about_me")
@@ -52,6 +57,17 @@ def add_game():
             VALUES (?, ?, ?, ?)
         """, (title, description_game, number_player, playing_time))
     return redirect("/add")
+
+
+@app.route("/delete_game", methods = ['DELETE'])
+def del_gam():
+    print("я дошёл до туда")
+    number_game = request.form["num_gam"]
+    print("вы попытались удалить игру под номером", number_game)
+    with sqlite3.connect("games.db") as conn:
+        conn.execute(f"""DELETE FROM games
+            WHERE (id) = {number_game}""")
+    return redirect("/games")
 
 if __name__ == "__main__":
     init_db()

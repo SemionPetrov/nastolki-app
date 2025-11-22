@@ -12,23 +12,22 @@
     <a href="/add"> Добавить игру</a> <br>
 {% else %}
     {%for g in games %}
-    <form action="/delete_game" method="post">
-
+    <form method="post">
         <table width="700" border="10">
             <tr>
-                <td rowspan="2" width="70">  Игра №<input type="hidden"   name="num_gam" value='{{g[0]}}'   > {{g[0]}}</td>
+                <td rowspan="2" width="70"><p>Игра №{{loop.index}}</p> <input type="hidden"   name="num_gam" value='{{g[0]}}'   ></td>
                 <th width="150">Название игры</th>
                 <th>Описание</th>
                 <th>Кол-во игроков</th>
                 <th>время игры</th>
-                <td width="100"><button type="submit" >Удалить игру</button></td>
+                <td width="100"><button type="submit" formaction="/delete_game" >Удалить игру</button></td>
             </tr>
             <tr>
-                <td>{{g[1]}}</td>
-                <td width="200">{{g[2]}}</td>
-                <td>{{g[3]}}</td>
-                <td>{{g[4]}}</td>
-                <td align="center"><button>Изменить</button></td>
+                <td>{% if upd == 0 %}{{g[1]}}{% else %}<input type="number" value={{g[1]}}>{% endif%} </td>
+                <td width="200 ">{% if upd == 0 %}{{g[2]}}{% else %}<input type="number" value={{g[2]}}>{% endif%} </td>
+                <td>{% if upd == 0 %}{{g[3]}}{% else %}<input type="number" value={{g[3]}}>{% endif%} </td>
+                <td>{% if upd == 0 %}{{g[4]}}{% else %}<input type="number" value={{g[4]}}>{% endif%} </td>
+                <td align="center"> {% if upd == 0 %} <button formaction="/update_game">Изменить</button>{% else %}<button formaction="/save_update"> Сохранить</button>{% endif%} </td>
             </tr>
         </table>
     </form>

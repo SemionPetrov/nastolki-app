@@ -4,12 +4,6 @@ from werkzeug.utils import redirect
 import sqlite3
 
 app = Flask(__name__)
-def printik(n,d):
-    n = 0
-    if d == 1:
-        n +=1
-    if d == 0:
-        n -=1
 
 def init_db():
     with sqlite3.connect("games.db") as conn:
@@ -27,8 +21,9 @@ def MyGame():
     with sqlite3.connect("games.db") as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT id, title, description, players, playing_time FROM games")
-        games = cursor.fetchall()  # Получаем все игры
-    return render_template("games.html", games=games)
+        games = cursor.fetchall()
+        upd = 0
+    return render_template("games.html", games=games, upd = upd)
 
 @app.route("/about_me")
 def about_me():
@@ -58,12 +53,17 @@ def add_game():
         """, (title, description_game, number_player, playing_time))
     return redirect("/add")
 
+@app.route("/update_game", methods = ['POST'])
+def up_gam():
+    return redirect('/games')
 
-@app.route("/delete_game", methods = ['DELETE'])
+@app.route("/save_update", methods = ['POST'])
+def s_u():
+    return redirect('/games')
+
+@app.route("/delete_game", methods = ['POST'])
 def del_gam():
-    print("я дошёл до туда")
     number_game = request.form["num_gam"]
-    print("вы попытались удалить игру под номером", number_game)
     with sqlite3.connect("games.db") as conn:
         conn.execute(f"""DELETE FROM games
             WHERE (id) = {number_game}""")

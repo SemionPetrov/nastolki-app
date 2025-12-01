@@ -16,6 +16,8 @@ def init_db():
 def hello():
     return render_template("index.html")
 
+
+
 @app.route("/games")
 def MyGame():
     with sqlite3.connect("games.db") as conn:
@@ -25,14 +27,21 @@ def MyGame():
         upd = 0
     return render_template("games.html", games=games, upd = upd)
 
+
+
+
 @app.route("/about_me")
 def about_me():
     return render_template("about_me.html")
 
 
+
+
 @app.route("/add")
 def form_add_game():
     return render_template("add.html")
+
+
 
 
 @app.route("/add_games", methods=['POST'])
@@ -42,10 +51,6 @@ def add_game():
     number_player = request.form["number_player"]
     playing_time = request.form['playing_time']
 
-    # Выводим в консоль, чтобы убедиться, что данные пришли
-    print(f"Получено: {title}, игроков: {number_player}")
-
-    # Сохраняем в БД
     with sqlite3.connect("games.db") as conn:
         conn.execute("""
             INSERT INTO games (title, description, players, playing_time)
@@ -53,13 +58,36 @@ def add_game():
         """, (title, description_game, number_player, playing_time))
     return redirect("/add")
 
+
+
+
+
 @app.route("/update_game", methods = ['POST'])
 def up_gam():
-    return redirect('/games')
+    with sqlite3.connect("games.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title, description, players, playing_time FROM games")
+        games = cursor.fetchall()
+        upd = (request.form["num_gam"],1)
+    return render_template("games.html", games=games, upd=upd)
+
+
+
+
 
 @app.route("/save_update", methods = ['POST'])
 def s_u():
-    return redirect('/games')
+    with sqlite3.connect("games.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title, description, players, playing_time FROM games")
+        games = cursor.fetchall()
+        upd = (request.form["num_gam"],0)
+    return render_template("games.html", games=games, upd=upd)
+
+
+
+
+
 
 @app.route("/delete_game", methods = ['POST'])
 def del_gam():
@@ -68,6 +96,12 @@ def del_gam():
         conn.execute(f"""DELETE FROM games
             WHERE (id) = {number_game}""")
     return redirect("/games")
+
+
+
+
+
+
 
 if __name__ == "__main__":
     init_db()

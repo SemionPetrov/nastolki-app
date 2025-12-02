@@ -19,15 +19,15 @@
                 <th width="150">Название игры</th>
                 <th>Описание</th>
                 <th>Кол-во игроков</th>
-                <th>время игры</th>
+                <th>Время игры</th>
                 <td width="100"><button type="submit" formaction="/delete_game" >Удалить игру</button></td>
             </tr>
             <tr bgcolor="#FFFFFF">
-                <td>{% if upd[1] == 0 %}{{g[1]}}{% else %}<input type="text" value={{g[1]}}>{% endif%} </td>
-                <td width="200 ">{% if upd[1] == 0 %}{{g[2]}}{% else %}<textarea>{{g[2]}}</textarea>{% endif%} </td>
-                <td>{% if upd[1] == 0 %}{{g[3]}}{% else %}<input type="number" value={{g[3]}}>{% endif%} </td>
-                <td>{% if upd[1] == 0 %}{{g[4]}}{% else %}<input type="number" value={{g[4]}}>{% endif%} </td>
-                <td align="center"> {% if upd[1] == 0 %} <button formaction="/update_game">Изменить</button>{% else %}<button formaction="/save_update"> Сохранить</button>{% endif%} </td>
+                <td>{% if g[7] == 1 %}{{g[1]}}{% else %}<input type="text" value={{g[1]}}>{% endif%} </td>
+                <td width="200 ">{% if g[7] == 1 %}{{g[2]}}{% else %}<textarea>{{g[2]}}</textarea>{% endif%} </td>
+                <td>{% if g[7] == 1 %}{{g[3]}}-{{g[4]}}{% else %}<input type="number" value={{g[3]}}> <input type="number" value={{g[4]}}>{% endif%} </td>
+                <td>{% if g[7] == 1 %}{{g[5]}}-{{g[6]}}<br>(мин){% else %}<input type="number" value={{g[5]}}> <input type="number" value={{g[6]}}>{% endif%} </td>
+                <td align="center"> {% if g[7] == 1 %} <button formaction="/update_game">Изменить</button>{% else %}<button formaction="/save_update"> Сохранить</button>{% endif%} </td>
             </tr>
         </table>
     </form>

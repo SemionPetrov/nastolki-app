@@ -22,10 +22,9 @@ def hello():
 def MyGame():
     with sqlite3.connect("games.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT id, title, description, players, playing_time FROM games")
+        cursor.execute("SELECT id, title, description, min_players, max_players, min_play_time, max_play_time, UPDT FROM games")
         games = cursor.fetchall()
-        upd = 0
-    return render_template("games.html", games=games, upd = upd)
+    return render_template("games.html", games=games)
 
 
 
@@ -48,14 +47,17 @@ def form_add_game():
 def add_game():
     title = request.form["title"]
     description_game = request.form["description"]
-    number_player = request.form["number_player"]
-    playing_time = request.form['playing_time']
+    mi_number_player = request.form["min_number_player"]
+    ma_number_player = request.form["max_number_player"]
+    mi_playing_time = request.form['min_playing_time']
+    ma_playing_time = request.form['max_playing_time']
+    UPDT= 1
 
     with sqlite3.connect("games.db") as conn:
         conn.execute("""
-            INSERT INTO games (title, description, players, playing_time)
-            VALUES (?, ?, ?, ?)
-        """, (title, description_game, number_player, playing_time))
+            INSERT INTO games (title, description, min_players, max_players, min_play_time, max_play_time, UPDT)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (title, description_game, mi_number_player, ma_number_player, mi_playing_time, ma_playing_time, UPDT))
     return redirect("/add")
 
 
@@ -66,10 +68,11 @@ def add_game():
 def up_gam():
     with sqlite3.connect("games.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT id, title, description, players, playing_time FROM games")
+        number_game = request.form["num_gam"]
+        cursor.execute(f"UPDATE games SET UPDT = 0 WHERE id = {number_game}")
+        cursor.execute("SELECT id, title, description, min_players, max_players, min_play_time, max_play_time, UPDT FROM games")
         games = cursor.fetchall()
-        upd = (request.form["num_gam"],1)
-    return render_template("games.html", games=games, upd=upd)
+    return render_template("games.html", games=games, )
 
 
 
@@ -79,10 +82,11 @@ def up_gam():
 def s_u():
     with sqlite3.connect("games.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT id, title, description, players, playing_time FROM games")
+        number_game = request.form["num_gam"]
+        cursor.execute(f"UPDATE games SET UPDT = 1 WHERE id = {number_game}")
+        cursor.execute("SELECT id, title, description, min_players, max_players, min_play_time, max_play_time, UPDT FROM games")
         games = cursor.fetchall()
-        upd = (request.form["num_gam"],0)
-    return render_template("games.html", games=games, upd=upd)
+    return render_template("games.html", games=games)
 
 
 

@@ -36,5 +36,17 @@ body {
     float:right;
 }
 a {
-color: #ffff01;
+    color: #ffff01;
+}
+
+.forma_add td{
+    width:150px;
+}
+
+.forma_add th{
+    text-align:left;
+}
+
+.view_game input,textarea {
+    width:120px;
 }

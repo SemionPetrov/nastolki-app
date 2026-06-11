@@ -64,3 +64,5 @@ docker compose up -d --build
     └── static/                     # Статические файлы
         ├── style.css
         └── zastavka-no-bg.png
+### Автор
+Петров Семён
